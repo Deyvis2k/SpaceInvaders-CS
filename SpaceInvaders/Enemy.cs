@@ -85,7 +85,7 @@ namespace SpaceInvaders
         public void MoveDown()
         {
             Speed = - Speed;
-            y += 15;
+            y += 10;
         }
 
         public void Fire(GameTime gameTime, int screenY, EnemyList enemies)
@@ -115,7 +115,7 @@ namespace SpaceInvaders
     public class EnemyList
     {
         private int addX = 20;
-        private int addY = 30;
+        private int addY = 40;
         public int level = 0;
         public List<Enemy> enemies = new List<Enemy>();
 

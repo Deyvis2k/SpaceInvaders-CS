@@ -51,8 +51,8 @@ namespace SpaceInvaders
         {
             if (!Player.GameOver(enemies, screenY))
             {
-                _spriteBatch.DrawString(comic, $"Score: {Player.Score}", new Vector2(20, 15), Color.DarkGoldenrod);
-                _spriteBatch.DrawString(comic, $"Max-Score: {Player.MaxScore}", new Vector2(screenX - screenX / 3 + 35, 15), Color.DarkGoldenrod);
+                _spriteBatch.DrawString(comic, $"Score: {Player.Score}", new Vector2(20, 8), Color.DarkGoldenrod);
+                _spriteBatch.DrawString(comic, $"Max-Score: {Player.MaxScore}", new Vector2(screenX - screenX / 3 + 35, 8), Color.DarkGoldenrod);
             }   
         }
 
