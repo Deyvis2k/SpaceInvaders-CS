@@ -104,6 +104,7 @@ namespace SpaceInvaders
 
         public void Reset(int ScreenX, int ScreenY)
         {
+            Mystery.IsSameLevel = false;
             Lifes = 3;
             Hearts = 3;
             bullets.Clear();

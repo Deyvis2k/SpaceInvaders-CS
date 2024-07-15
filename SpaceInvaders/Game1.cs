@@ -19,6 +19,8 @@ namespace SpaceInvaders
         private Texture2D[] texture;
         public Song bulletSound;
 
+        
+
         public int screenX;
         public int screenY;
         Rectangle gameElement;
@@ -26,7 +28,9 @@ namespace SpaceInvaders
         Texture2D playertexture;
         Texture2D bullet;
         Texture2D heartTexture;
+        Texture2D MysteryTexture;
 
+        private Mystery Mystery;
         public SpriteFont comic;
 
         public Game1()
@@ -52,6 +56,9 @@ namespace SpaceInvaders
             player = new Player(screenX / 2 , screenY - screenY / 5);
 
             gui = new(0, screenY - screenY / 8);
+
+
+            Mystery = new(screenX);
 
             base.Initialize();
         }
@@ -91,7 +98,7 @@ namespace SpaceInvaders
             //--------------------------------------------//
 
             heartTexture = Content.Load<Texture2D>("heart");
-            
+            MysteryTexture = Content.Load<Texture2D>("MysteryShips");
             bulletSound = Content.Load<Song>("lasersound");
             comic = Content.Load<SpriteFont>("Comic");
         }
@@ -115,7 +122,13 @@ namespace SpaceInvaders
             enemies.HitPlayer(player);
             enemies.Fire(gameTime, screenY);
             enemies.MoveBullets(screenY);
-            
+
+
+            Mystery.Eliminate(screenX);
+            Mystery.Move();
+            Mystery.GetHit(player);
+
+
             if (Player.Hearts == 0)
             {
                 Player.Lifes--;
@@ -158,6 +171,7 @@ namespace SpaceInvaders
             Gui.DrawPlayerInformation(_spriteBatch, comic, screenX, screenY , enemies);
             Gui.DrawScores(_spriteBatch, comic, screenX, screenY, enemies);
             Gui.DrawGameOver(_spriteBatch, comic, screenX, screenY, enemies);
+            Mystery.Draw(_spriteBatch, MysteryTexture, gameTime, screenY, enemies);
             _spriteBatch.End();
 
             base.Draw(gameTime);

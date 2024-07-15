@@ -190,11 +190,13 @@ namespace SpaceInvaders
         {
             if (IsAllDead())
             {
+
                 enemies.Clear();
                 player.level++;
                 level++;
                 AddEnemy(texture);
                 Enemy.TotalEliminated = 0;
+                Mystery.IsSameLevel = false;
                 IncreaseSpeed();
             }
         }
