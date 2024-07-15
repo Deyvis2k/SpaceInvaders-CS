@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace SpaceInvaders
 {
@@ -31,20 +33,21 @@ namespace SpaceInvaders
             activeShipDirection = string.Empty;
         }
 
-        private void GenerateShip()
+        private void GenerateShip(Song song)
         {
             if (!shipActive && rnd.Next(0, 25) == 1 && !IsSameLevel)
             {
                 shipActive = true;
                 activeShipDirection = rnd.Next(0, 2) == 0 ? "left" : "right";
+                PlaySongEffect(song);
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, Texture2D texture, GameTime gametime, int screenY, EnemyList enemies)
+        public void Draw(SpriteBatch spriteBatch, Texture2D texture, GameTime gametime, int screenY, EnemyList enemies, Song song)
         {
             if (gametime.TotalGameTime.TotalMilliseconds % 1000 < 16)
             {
-                GenerateShip();
+                GenerateShip(song);
             }
 
             if (shipActive && !Player.GameOver(enemies, screenY))
@@ -60,6 +63,7 @@ namespace SpaceInvaders
             {
                 if (activeShipDirection == "left")
                 {
+                    
                     Ships[activeShipDirection] = new Rectangle(Ships[activeShipDirection].X + Speed, Ships[activeShipDirection].Y, Width, Height);
                 }
                 else
@@ -67,6 +71,17 @@ namespace SpaceInvaders
                     Ships[activeShipDirection] = new Rectangle(Ships[activeShipDirection].X - Speed, Ships[activeShipDirection].Y, Width, Height);
                 }
             }
+        }
+
+        public void PlaySongEffect(Song song)
+        {
+            if (shipActive)
+            {
+                MediaPlayer.Play(song);
+                MediaPlayer.Volume = 0.1f;
+            }
+           
+
         }
 
         public bool IsAtEdge(int screenWidth)

@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../../../../Downloads/mysteryshipeffect.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:../../../../../Downloads/mysteryshipeffect.mp3;mysteryshipeffect.mp3
+
 #begin Comic.spritefont
 /importer:FontDescriptionImporter
 /processor:LocalizedFontProcessor
@@ -44,11 +50,11 @@
 /processorParam:TextureFormat=Color
 /build:heart.png
 
-#begin lasersound.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin lasersoundwav.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:lasersound.mp3
+/build:lasersoundwav.wav
 
 #begin MysteryShips.png
 /importer:TextureImporter

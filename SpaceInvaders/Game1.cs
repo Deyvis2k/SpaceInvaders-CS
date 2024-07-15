@@ -3,6 +3,7 @@ using System.Reflection.Metadata;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 
 namespace SpaceInvaders
@@ -17,9 +18,11 @@ namespace SpaceInvaders
         private Player player;
         public ForceField forcefield1 = new ();
         private Texture2D[] texture;
-        public Song bulletSound;
+        private SoundEffectInstance bulletSoundInstance;
+        private SoundEffect bulletSound;
+        private Song MysterySound;
 
-        
+
 
         public int screenX;
         public int screenY;
@@ -60,6 +63,8 @@ namespace SpaceInvaders
 
             Mystery = new(screenX);
 
+            
+
             base.Initialize();
         }
 
@@ -97,10 +102,16 @@ namespace SpaceInvaders
 
             //--------------------------------------------//
 
+            comic = Content.Load<SpriteFont>("Comic");
             heartTexture = Content.Load<Texture2D>("heart");
             MysteryTexture = Content.Load<Texture2D>("MysteryShips");
-            bulletSound = Content.Load<Song>("lasersound");
-            comic = Content.Load<SpriteFont>("Comic");
+
+            bulletSound = Content.Load<SoundEffect>("lasersoundwav");
+            bulletSoundInstance = bulletSound.CreateInstance();
+            
+
+            MysterySound = Content.Load<Song>("mysteryshipeffect");
+            
         }
 
   
@@ -110,7 +121,7 @@ namespace SpaceInvaders
                 Exit();
 
             player.Move(screenX, screenY, enemies);
-            player.Fire(gameTime, bulletSound, screenY, enemies);
+            player.Fire(gameTime, bulletSoundInstance, bulletSound, screenY, enemies);
             player.MoveBullet();
             Player.MaxScore = Math.Max(Player.MaxScore, Player.Score);
             
@@ -127,6 +138,7 @@ namespace SpaceInvaders
             Mystery.Eliminate(screenX);
             Mystery.Move();
             Mystery.GetHit(player);
+
 
 
             if (Player.Hearts == 0)
@@ -171,7 +183,7 @@ namespace SpaceInvaders
             Gui.DrawPlayerInformation(_spriteBatch, comic, screenX, screenY , enemies);
             Gui.DrawScores(_spriteBatch, comic, screenX, screenY, enemies);
             Gui.DrawGameOver(_spriteBatch, comic, screenX, screenY, enemies);
-            Mystery.Draw(_spriteBatch, MysteryTexture, gameTime, screenY, enemies);
+            Mystery.Draw(_spriteBatch, MysteryTexture, gameTime, screenY, enemies, MysterySound);
             _spriteBatch.End();
 
             base.Draw(gameTime);

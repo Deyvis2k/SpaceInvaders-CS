@@ -70,13 +70,14 @@ namespace SpaceInvaders
             
         }
 
-        public void Fire(GameTime gameTime, Song song, int ScreenY, EnemyList enemies)
+        public void Fire(GameTime gameTime, SoundEffectInstance songInstance, SoundEffect song, int ScreenY, EnemyList enemies)
         {
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && !Fired && bullets.Count < 1 && !GameOver(enemies, ScreenY))
             {
-                MediaPlayer.Volume = 0.02f;
-                MediaPlayer.Play(song);
+                songInstance = song.CreateInstance();
+                songInstance.Volume = 0.02f;
+                songInstance.Play();
                 Fired = true;
                 bulletY = y - bulletSizeY;
                 bulletX = x + (playerSizeX - bulletSizeX) / 2;
